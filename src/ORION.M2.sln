@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ORION.M2.API", "ORION.M2.API\ORION.M2.API.csproj", "{F1D37459-90C3-4EE0-9094-1D76DF7ACD93}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ORION.M2.DbContext", "ORION.M2.DbContext\ORION.M2.DbContext.csproj", "{1816C35F-1CAD-4960-B0DF-3D62DDD6E45D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1D37459-90C3-4EE0-9094-1D76DF7ACD93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1D37459-90C3-4EE0-9094-1D76DF7ACD93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1D37459-90C3-4EE0-9094-1D76DF7ACD93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1D37459-90C3-4EE0-9094-1D76DF7ACD93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1816C35F-1CAD-4960-B0DF-3D62DDD6E45D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1816C35F-1CAD-4960-B0DF-3D62DDD6E45D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1816C35F-1CAD-4960-B0DF-3D62DDD6E45D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1816C35F-1CAD-4960-B0DF-3D62DDD6E45D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {80971CCF-7956-442D-A8DB-E607B4B29B4B}
+	EndGlobalSection
+EndGlobal

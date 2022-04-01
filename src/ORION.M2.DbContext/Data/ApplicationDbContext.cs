@@ -11,7 +11,7 @@ public class ApplicationDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-        var conn = $@"Data Source={baseDir}\\orion.db";
+        var conn = $@"Data Source={baseDir}//orion.db";
         optionsBuilder.UseSqlite(conn);
     }
 }

@@ -31,7 +31,7 @@ namespace ORION.M2.API.Controllers
         [ProducesResponseType(500)]
         public async Task<ActionResult<IEnumerable<Person>>> GetPerson()
         {
-            return await _db.Person.ToListAsync();
+            return Ok(await _db.Person.ToListAsync());
         }
 
         // GET: api/Person/5
@@ -56,7 +56,7 @@ namespace ORION.M2.API.Controllers
                 return NotFound();
             }
 
-            return person;
+            return Ok(person);
         }
 
         // PATCH: api/person/5

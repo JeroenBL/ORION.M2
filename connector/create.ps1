@@ -99,6 +99,17 @@ try {
 
             'Update-Correlate'{
                 Write-Verbose "Correlating and updating ORION.M2 account"
+                $splatCompareProperties = @{
+                    ReferenceObject  = @($previousAccount.PSObject.Properties)
+                    DifferenceObject = @($account.PSObject.Properties)
+                }
+                $propertiesChanged = (Compare-Object @splatCompareProperties).Where({$_.SideIndicator -eq '=>'})
+                if ($propertiesChanged) {
+                    Write-Verbose "[Account changed] Updating ORION.M2 account"
+                } else {
+                    Write-Verbose "[NoChanges] No updates necessary"
+                }
+
                 $accountReference = $person.id
                 break
             }

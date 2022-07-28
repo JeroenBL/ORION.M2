@@ -25,20 +25,28 @@ namespace ORION.M2.API.Controllers
         /// <summary>
         /// Retrieve all persons from the ORION.M2 database
         /// </summary>
-        /// <returns></returns>
+        /// <response code="200"></response>
         [HttpGet]
+        [ProducesResponseType(typeof(List<Person>), 200)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<IEnumerable<Person>>> GetPerson()
         {
             return await _db.Person.ToListAsync();
         }
 
+        // GET: api/Person/5
         /// <summary>
         /// Retrieve single person (by id) from the ORION.M2 database
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        // GET: api/Person/5
+        /// <response code="200"></response>
+        /// <response code="404">Person not found</response>
+        /// <response code="500">Internal server error</response>
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Person), 200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<Person>> GetPerson(int id)
         {
             var person = await _db.Person.FindAsync(id);
@@ -57,8 +65,13 @@ namespace ORION.M2.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <param name="person"></param>
-        /// <returns></returns>
+        /// <response code="200">Person created</response>
+        /// <response code="404">Person not found</response>
+        /// <response code="500">Internal server error</response>
         [HttpPatch("{id}")]
+        [ProducesResponseType(typeof(Person), 200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> PatchPerson(int id, [FromBody]JsonPatchDocument<Person> person)
         {
             var entity = await _db.Person.FindAsync(id);
@@ -79,8 +92,13 @@ namespace ORION.M2.API.Controllers
         /// Create a new person in the ORION.M2 database
         /// </summary>
         /// <param name="person"></param>
-        /// <returns></returns>
+        /// <response code="200">Person created</response>
+        /// <response code="400">Person has missing/invalid values</response>
+        /// <response code="500">Internal server error</response>
         [HttpPost]
+        [ProducesResponseType(typeof(Person), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<Person>> PostPerson(Person person)
         {
             _db.Person.Add(person);
@@ -94,8 +112,13 @@ namespace ORION.M2.API.Controllers
         /// Delete a person (by id) from the ORION.M2 database
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <response code="204">Person deleted</response>
+        /// <response code="404">Person not found</response>
+        /// <response code="500">Internal server error</response> 
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> DeletePerson(int id)
         {
             var person = await _db.Person.FindAsync(id);
@@ -117,9 +140,14 @@ namespace ORION.M2.API.Controllers
         /// </summary>
         /// <param name="amount">The amount of sample persons you wish to create</param>
         /// <param name="locale">The local of the sample persons. Like 'en'. For a complete overview see: https://github.com/bchavez/Bogus </param>
-        /// <returns></returns>
+        /// <response code="200">Persons created</response>
+        /// <response code="400">missing/invalid values</response>
+        /// <response code="500">Internal server error</response> 
         [HttpPost("createSamplePersons")]
         [Consumes("application/json")]
+        [ProducesResponseType(typeof(List<Person>), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<Person>> CreateSamplePersons(int amount, string locale)
         {
             var persons = _personSampleService.Create(amount, locale);
@@ -138,8 +166,11 @@ namespace ORION.M2.API.Controllers
         /// <summary>
         /// Remove all persons (both sample and non-sample) from the database
         /// </summary>
-        /// <returns></returns>
+        /// <response code="204">Persons deleted</response>
+        /// <response code="500">Internal server error</response> 
         [HttpDelete("all")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult> EmptyDatabase()
         {
             var persons = await _db.Person.ToListAsync();

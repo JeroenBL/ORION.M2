@@ -23,19 +23,28 @@ namespace ORION.M2.API.Controllers
         /// Retrieve all permissions from the ORION.M2 database
         /// </summary>
         /// <returns></returns>
+        /// <response code="200"></response>
         [HttpGet]
+        [ProducesResponseType(typeof(List<Permission>), 200)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<IEnumerable<Permission>>> GetPermission()
         {
-            return await _db.Permission.ToListAsync();
+            return Ok(await _db.Permission.ToListAsync());
         }
 
+        // GET: api/Permission/5
         /// <summary>
         /// Retrieve single permission (by id) from the ORION.M2 database
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        // GET: api/Permission/5
+        /// <response code="200"></response>
+        /// <response code="404">Permission not found</response>
+        /// <response code="500">Internal server error</response>
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Permission), 200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<Permission>> GetPermission(int id)
         {
             var permission = await _db.Permission.FindAsync(id);
@@ -45,17 +54,23 @@ namespace ORION.M2.API.Controllers
                 return NotFound();
             }
 
-            return permission;
+            return Ok(permission);
         }
 
+        // PATCH: api/person/5
         /// <summary>
         /// Patch a permission (by id) in the ORION.M2 database
         /// </summary>
         /// <param name="id"></param>
         /// <param name="permission"></param>
         /// <returns></returns>
-        // PATCH: api/person/5
+        /// <response code="200">Permission created</response>
+        /// <response code="404">Permission not found</response>
+        /// <response code="500">Internal server error</response>
         [HttpPatch("{id}")]
+        [ProducesResponseType(typeof(Permission), 200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> PatchPermission(int id, [FromBody] JsonPatchDocument<Permission> permission)
         {
             var entity = await _db.Permission.FindAsync(id);
@@ -76,7 +91,13 @@ namespace ORION.M2.API.Controllers
         /// </summary>
         /// <param name="permission"></param>
         /// <returns></returns>
+        /// <response code="200">Permission created</response>
+        /// <response code="400">Permission has missing/invalid values</response>
+        /// <response code="500">Internal server error</response>
         [HttpPost]
+        [ProducesResponseType(typeof(Permission), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<Permission>> PostPermission(Permission permission)
         {
             _db.Permission.Add(permission);
@@ -91,7 +112,13 @@ namespace ORION.M2.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// <response code="204">Permission deleted</response>
+        /// <response code="404">Permission not found</response>
+        /// <response code="500">Internal server error</response> 
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> DeletePermission(int id)
         {
             var permission = await _db.Permission.FindAsync(id);
